@@ -1,13 +1,24 @@
-/* fighters.css */
+/* Fighters.css */
+.fighters-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Create 4 columns */
+  gap: 20px; /* Add gap between cards */
+  padding: 20px;
+  margin: 0 auto;
+}
+
 .fighter-card {
   display: flex;
+  flex-direction: column; /* Adjust flex direction for responsiveness */
   align-items: center;
+  justify-content: center;
   margin: 10px;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
   background-color: #ffffff24;
   transition: transform 0.3s, background-color 0.3s;
+  /* ... rest of your fighter-card styles ... */
 }
 
 .fighter-img {

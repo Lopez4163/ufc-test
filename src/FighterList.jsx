@@ -3,7 +3,11 @@ import "./fighters.css"
 
 const FightersList = ({ fightersArray, loading }) => {
   if (loading) {
-    return <div>Loading...</div>
+    return (
+      <div className="loading">
+        Loading<span className="loading-dots">.</span>
+      </div>
+    )
   }
 
   const handleImageError = event => {

@@ -5,19 +5,32 @@
 
 /* App.css */
 /* App.css */
-.load-more-button {
-  padding: 8px 16px;
-  font-size: 20px;
-  border: none;
-  border-radius: 10px;
-  background-color: #000;
-  color: #fff;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  margin-bottom: 20px; /* Add margin to the top of the button */
+
+.loading {
+  display: flex;
+  position: fixed;
+  align-items: center; /* Center vertically */
+  height: 100vh; /* Make sure the loading div takes up the full viewport height */
+  font-size: 40px;
+  font-weight: bold;
+  margin-top: -100px;
+  margin-left: 725px;
 }
 
-.load-more-button:hover {
-  background-color: #333;
-  transform: scale(1.05);
+.loading-dots::after {
+  content: "";
+  animation: loadingDots 1s infinite;
+}
+
+@keyframes loadingDots {
+  0%,
+  100% {
+    content: "";
+  }
+  33% {
+    content: ".";
+  }
+  66% {
+    content: "..";
+  }
 }

@@ -4,7 +4,7 @@ import FightersList from "./FighterList"
 import Header from "./Header"
 import LoadMoreButton from "./LoadMoreButton"
 import Footer from "./Footer" // Import the Footer component
-
+import "./Footer.css"
 import "./App.css"
 
 const App = () => {
@@ -12,24 +12,17 @@ const App = () => {
   const [filteredFightersArray, setFilteredFightersArray] = useState([])
   const [loading, setLoading] = useState(true)
   const [visibleFighters, setVisibleFighters] = useState(20)
-  const [activeFilter, setActiveFilter] = useState("All") // Add activeFilter state
-  const [searchQuery, setSearchQuery] = useState("") // Add searchQuery state
+  const [activeFilter, setActiveFilter] = useState("All")
+  const [searchQuery, setSearchQuery] = useState("")
+  const [isScrolled, setIsScrolled] = useState(false)
 
   const handleScroll = () => {
     const scrollY = window.scrollY
-    const footer = document.querySelector(".footer")
-
-    if (scrollY > 0) {
-      footer.classList.remove("show")
-    } else {
-      footer.classList.add("show")
-    }
+    setIsScrolled(scrollY > 0)
   }
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll)
-    handleScroll() // Call handleScroll to set initial footer visibility
-
     return () => {
       window.removeEventListener("scroll", handleScroll)
     }
@@ -38,9 +31,7 @@ const App = () => {
   useEffect(() => {
     const fetchFightersData = async () => {
       try {
-        const response = await fetch(
-          "https://cors-anywhere.herokuapp.com/corsdemo/http://3.95.185.12:3000/api/fighters"
-        )
+        const response = await fetch("http://3.95.185.12:3000/api/fighters")
         if (!response.ok) {
           throw new Error("Network response was not ok")
         }
@@ -67,7 +58,7 @@ const App = () => {
     const checkScrapingStatus = async () => {
       try {
         const response = await fetch(
-          "https://cors-anywhere.herokuapp.com/corsdemo/http://3.95.185.12:3000/api/isScrapingComplete"
+          "http://3.95.185.12:3000/api/isScrapingComplete"
         )
         if (!response.ok) {
           throw new Error("Network response was not ok")
@@ -184,12 +175,13 @@ const App = () => {
         loading={loading}
       />
       {visibleFighters < filteredFightersArray.length && (
-        <LoadMoreButton onClick={loadMoreFighters} />
+        <LoadMoreButton
+          onClick={loadMoreFighters}
+          onScrollToTop={scrollToTop}
+        />
       )}
-      <button className="scroll-to-top-button" onClick={scrollToTop}>
-        Scroll to Top
-      </button>
-      <Footer /> {/* Add the Footer component */}
+
+      <Footer className={`footer ${isScrolled ? "hidden" : ""}`} />
     </div>
   )
 }

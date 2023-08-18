@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react"
-import "./header.css"
 
 const SearchBar = ({ onSearch }) => {
   const [searchQuery, setSearchQuery] = useState("")
